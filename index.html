@@ -85,6 +85,19 @@
       }
     }
 
+    .final-image {
+      opacity: 0;
+      transition: all 0.8s ease-out;
+      max-width: 100%;
+      border-radius: 20px;
+      margin-top: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .final-image.show {
+      opacity: 1;
+    }
+
     .signature {
       font-size: 1.2em;
       font-style: italic;
@@ -121,6 +134,10 @@
       <div class="message">Te amo mais do que palavras podem explicar. ❤️</div>
     </div>
 
+    <!-- Imagem final -->
+    <img id="finalImage" class="final-image" src="https://i.imgur.com/V6rrocx.jpeg" alt="Nós dois" />
+
+    <!-- Assinatura -->
     <div class="signature" id="signature">
       Com todo o meu amor,<br/>
       Suelen 💌
@@ -131,18 +148,25 @@
     function startMessages() {
       const messages = document.querySelectorAll('.message');
       const signature = document.getElementById('signature');
+      const finalImage = document.getElementById('finalImage');
 
       let delay = 0;
       messages.forEach((msg, index) => {
         setTimeout(() => {
           msg.classList.add('show');
+
+          // Se for a última mensagem, mostra a imagem depois
           if (index === messages.length - 1) {
             setTimeout(() => {
-              signature.classList.add('show');
-            }, 1000);
+              finalImage.classList.add('show');
+              // Depois da imagem, mostra a assinatura
+              setTimeout(() => {
+                signature.classList.add('show');
+              }, 1500);
+            }, 2000);
           }
         }, delay);
-        delay += 2000; // 2 segundos entre cada mensagem
+        delay += 2000;
       });
 
       // Oculta o botão após clicar
